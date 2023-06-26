@@ -37,20 +37,20 @@ app.get("/cities", (req, res) => {
   return res.json(data);
 });
 
-/*
-[GET API] used in module 2 to fetch all adventures for a given city
-The response is an [array] of adventures with each having the following structure :
-{
-    "id": "2447910730",
-    "name": "Niaboytown",
-    "costPerHead": 4003,
-    "currency": "INR",
-    "image": "https://images.pexels.com/photos/837745/pexels-photo-837745.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-    "duration": 6,
-    "category": "Party"
- }
-Data is sourced from "adventures" array in db.json file
-*/
+
+// [GET API] used in module 2 to fetch all adventures for a given city
+// The response is an [array] of adventures with each having the following structure :
+// {
+//     "id": "2447910730",
+//     "name": "Niaboytown",
+//     "costPerHead": 4003,
+//     "currency": "INR",
+//     "image": "https://images.pexels.com/photos/837745/pexels-photo-837745.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+//     "duration": 6,
+//     "category": "Party"
+//  }
+// Data is sourced from "adventures" array in db.json file
+
 app.get("/adventures", (req, res) => {
   const data = db.get("adventures").value();
   let response = (data.find((item) => item.id == req.query.city) || [])
@@ -198,10 +198,10 @@ app.post("/adventures/new", (req, res) => {
   const name = places[Math.floor(Math.random() * places.length)];
   const price = randomInteger(500, 5000);
   const adventureDetail = {
-    id: id,
-    name: name,
+    id: "bengaluru",
+    name: "bengaluru",
     subtitle: "This is a mind-blowing randomly generated adventure!",
-    images: images,
+    images: "https://images.pexels.com/photos/3573382/pexels-photo-3573382.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
     content:
       "A random paragraph can also be an excellent way for a writer to tackle writers' block. Writing block can often happen due to being stuck with a current project that the writer is trying to complete. By inserting a completely random paragraph from which to begin, it can take down some of the issues that may have been causing the writers' block in the first place. A random paragraph can also be an excellent way for a writer to tackle writers' block. Writing block can often happen due to being stuck with a current project that the writer is trying to complete. By inserting a completely random paragraph from which to begin, it can take down some of the issues that may have been causing the writers' block in the first place. A random paragraph can also be an excellent way for a writer to tackle writers' block. Writing block can often happen due to being stuck with a current project that the writer is trying to complete. By inserting a completely random paragraph from which to begin, it can take down some of the issues that may have been causing the writers' block in the first place. A random paragraph can also be an excellent way for a writer to tackle writers' block. Writing block can often happen due to being stuck with a current project that the writer is trying to complete.",
     available: true,
