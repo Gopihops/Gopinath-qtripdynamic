@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="4" failures="0" time="2.841">
-  <testsuite name="Landing Page Tests" errors="0" failures="0" skipped="0" timestamp="2023-06-26T07:20:00" time="1.826" tests="4">
-    <testcase classname="Landing Page Tests fetchCities() - Makes a fetch call for /cities API endpoint and returns an array with the cities data" name="Landing Page Tests fetchCities() - Makes a fetch call for /cities API endpoint and returns an array with the cities data" time="0.147">
+<testsuites name="jest tests" tests="4" failures="0" time="2.5">
+  <testsuite name="Landing Page Tests" errors="0" failures="0" skipped="0" timestamp="2023-06-26T09:26:21" time="1.513" tests="4">
+    <testcase classname="Landing Page Tests fetchCities() - Makes a fetch call for /cities API endpoint and returns an array with the cities data" name="Landing Page Tests fetchCities() - Makes a fetch call for /cities API endpoint and returns an array with the cities data" time="0.105">
     </testcase>
-    <testcase classname="Landing Page Tests Catches error and returns null, if fetch call fails " name="Landing Page Tests Catches error and returns null, if fetch call fails " time="0.063">
+    <testcase classname="Landing Page Tests Catches error and returns null, if fetch call fails " name="Landing Page Tests Catches error and returns null, if fetch call fails " time="0.058">
     </testcase>
-    <testcase classname="Landing Page Tests Adds a new City - London" name="Landing Page Tests Adds a new City - London" time="0.061">
+    <testcase classname="Landing Page Tests Adds a new City - London" name="Landing Page Tests Adds a new City - London" time="0.039">
     </testcase>
-    <testcase classname="Landing Page Tests Correctly links City Card to Adventures page" name="Landing Page Tests Correctly links City Card to Adventures page" time="0.03">
+    <testcase classname="Landing Page Tests Correctly links City Card to Adventures page" name="Landing Page Tests Correctly links City Card to Adventures page" time="0.019">
     </testcase>
   </testsuite>
 </testsuites>
