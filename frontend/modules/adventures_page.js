@@ -1,25 +1,60 @@
-
 import config from "../conf/index.js";
 
 //Implementation to extract city from query params
 function getCityFromURL(search) {
   // TODO: MODULE_ADVENTURES
   // 1. Extract the city id from the URL's Query Param and return it
-
+  return search.split('=')[1]
 }
 
 //Implementation of fetch call with a paramterized input based on city
 async function fetchAdventures(city) {
   // TODO: MODULE_ADVENTURES
   // 1. Fetch adventures using the Backend API and return the data
-
+  try {
+    // TODO: MODULE_CITIES
+    // 1. Fetch cities using the Backend API and return the data
+    const adventures = await fetch(config.backendEndpoint+"/adventures/?city="+city);
+    const data = await adventures.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
-
 //Implementation of DOM manipulation to add adventures for the given city from list of adventures
 function addAdventureToDOM(adventures) {
+  console.log(adventures)
+const thisDiv =document.querySelector("#data");
+const array =[];
   // TODO: MODULE_ADVENTURES
   // 1. Populate the Adventure Cards and insert those details into the DOM
+adventures.forEach(item=> {
+  const {id, name, costPerHead, image,   duration, currency, category}=item;
+  const newCard=document.createElement("div");
+  newCard.className="col-6 col-md-4 col-lg-3 mb-3 px-2 activity-card-div";
+  newCard.innerHTML=`
+  <a href="/detail/?adventure=${id}" id="${id}">
+   <div class ="card activity-card bg-light">
+     <img class ="card-img-top" src=${image} alt=${id}>
+     <div class ="card-header w-100 d-flex align-items-center justify-content-between">
+        <span>${name}</span>
+         <span>${costPerHead}</span>
+  </div>
+  <div class ="card-body">
+     <p class ="w-100 d-flex align-items-center justify-content-between">
+       <span class ="duration"> Duration </span>
+        <span class ="duration">${duration} Hours</span>
+     </p>
+  </div>
+ </div>
+ </a>
+<div class ="category-banner">${category}</div>`;
+  thisDiv.append(newCard);
 
+})
+thisDiv.append(addNewAdventure());
 }
 
 //Implementation of filtering by duration which takes in a list of adventures, the lower bound and upper bound of duration and returns a filtered list of adventures.
