@@ -54,7 +54,7 @@ adventures.forEach(item=> {
   thisDiv.append(newCard);
 
 })
-thisDiv.append(addNewAdventure());
+// thisDiv.append(addNewAdventure());
 }
 
 //Implementation of filtering by duration which takes in a list of adventures, the lower bound and upper bound of duration and returns a filtered list of adventures.
