@@ -26,6 +26,9 @@ async function fetchCities() {
     console.log(error);
     return null;
   }
+  // TODO: MODULE_CITIES
+  // 1. Fetch cities using the Backend API and return the data
+
 }
 
 //Implementation of DOM manipulation to add cities
@@ -51,6 +54,8 @@ function addCityToDOM(id, city, description, image) {
   data.append(newCard)
   console.log(document.getElementById(id).href)
 }
+
+
 
 
 export { init, fetchCities, addCityToDOM };
