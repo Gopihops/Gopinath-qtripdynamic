@@ -1,93 +1,161 @@
-
 import config from "../conf/index.js";
 
-//Implementation to extract city from query params
-function getCityFromURL(search) {
-  // TODO: MODULE_ADVENTURES
-  // 1. Extract the city id from the URL's Query Param and return it
+//Implementation to extract adventure ID from query params
+function getAdventureIdFromURL(search) {
+  // TODO: MODULE_ADVENTURE_DETAILS
+  // 1. Get the Adventure Id from the URL
 
+  // Place holder for functionality to work in the Stubs
+  const params = new URLSearchParams(search);
+  return params.get('adventure');
+  //return null;
 }
-
-//Implementation of fetch call with a paramterized input based on city
-async function fetchAdventures(city) {
-  // TODO: MODULE_ADVENTURES
-  // 1. Fetch adventures using the Backend API and return the data
-
-}
-
-//Implementation of DOM manipulation to add adventures for the given city from list of adventures
-function addAdventureToDOM(adventures) {
-  // TODO: MODULE_ADVENTURES
-  // 1. Populate the Adventure Cards and insert those details into the DOM
-
-}
-
-//Implementation of filtering by duration which takes in a list of adventures, the lower bound and upper bound of duration and returns a filtered list of adventures.
-function filterByDuration(list, low, high) {
-  // TODO: MODULE_FILTERS
-  // 1. Filter adventures based on Duration and return filtered list
-
-}
-
-//Implementation of filtering by category which takes in a list of adventures, list of categories to be filtered upon and returns a filtered list of adventures.
-function filterByCategory(list, categoryList) {
-  // TODO: MODULE_FILTERS
-  // 1. Filter adventures based on their Category and return filtered list
-
-}
-
-// filters object looks like this filters = { duration: "", category: [] };
-
-//Implementation of combined filter function that covers the following cases :
-// 1. Filter by duration only
-// 2. Filter by category only
-// 3. Filter by duration and category together
-
-function filterFunction(list, filters) {
-  // TODO: MODULE_FILTERS
-  // 1. Handle the 3 cases detailed in the comments above and return the filtered list of adventures
-  // 2. Depending on which filters are needed, invoke the filterByDuration() and/or filterByCategory() methods
+///home/crio-user/workspace/gopinath23032001-ME_QTRIPDYNAMIC/frontend/cssImplementation of fetch call with a paramterized input based on adventure ID
+async function fetchAdventureDetails(adventureId) {
+  // TODO: MODULE_ADVENTURE_DETAILS
+  // 1. Fetch the details of the adventure by making an API call
 
 
   // Place holder for functionality to work in the Stubs
-  return list;
+  try {
+    // TODO: MODULE_CITIES
+    // 1. Fetch cities using the Backend API and return the data
+    const adventures = await fetch(config.backendEndpoint + `/adventures/detail?adventure=${adventureId}`);
+    const data = await adventures.json();
+    //console.log(data);
+    return data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
 }
 
-//Implementation of localStorage API to save filters to local storage. This should get called everytime an onChange() happens in either of filter dropdowns
-function saveFiltersToLocalStorage(filters) {
-  // TODO: MODULE_FILTERS
-  // 1. Store the filters as a String to localStorage
-
-  return true;
+//Implementation of DOM manipulation to add adventure details to DOM
+function addAdventureDetailsToDOM(adventure) {
+  // TODO: MODULE_ADVENTURE_DETAILS
+  // 1. Add the details of the adventure to the HTML DOM
+  document.getElementById("adventure-name").append(adventure.name);
+  document.getElementById("adventure-subtitle").append(adventure.subtitle);
+  for (let i = 0; i < adventure.images.length; i++) {
+    var div = document.createElement("div");
+    var img = document.createElement("img");
+    img.setAttribute("class", "activity-card-image");
+    img.src = adventure.images[i];
+    div.append(img);
+    document.getElementById("photo-gallery").append(div);
+  }
+  document.getElementById("adventure-content").append(adventure.content);
 }
 
-//Implementation of localStorage API to get filters from local storage. This should get called whenever the DOM is loaded.
-function getFiltersFromLocalStorage() {
-  // TODO: MODULE_FILTERS
-  // 1. Get the filters from localStorage and return String read as an object
-
-
-  // Place holder for functionality to work in the Stubs
-  return null;
+//Implementation of bootstrap gallery component
+function addBootstrapPhotoGallery(images) {
+  // TODO: MODULE_ADVENTURE_DETAILS
+  // 1. Add the bootstrap carousel to show the Adventure images
+  let photoGallery = document.getElementById("photo-gallery")
+  photoGallery.innerHTML = `
+   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+   <div class="carousel-indicators">
+     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true"></button>
+     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="slide 2"></button>
+     <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="slide 3"></button>
+   </div>
+   <div class="carousel-inner"  id="carousel-inner">
+   </div>
+   <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+     <span class="visually-hidden">Previous</span>
+   </button>
+   <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+     <span class="carousel-control-next-icon" aria-hidden="true"></span>
+     <span class="visually-hidden">Next</span>
+   </button>
+ </div>
+   `
+  images.map((key, index) => {
+    let divElement = document.createElement("div");
+    divElement.className = `carousel-item ${index === 0 ? 'active' : ''}`;
+    divElement.innerHTML = `
+       <img src=${key} class="activity-card-image pb-3"/>
+     `;
+    document.getElementById("carousel-inner").appendChild(divElement);
+  });
 }
 
-//Implementation of DOM manipulation to add the following filters to DOM :
-// 1. Update duration filter with correct value
-// 2. Update the category pills on the DOM
-
-function generateFilterPillsAndUpdateDOM(filters) {
-  // TODO: MODULE_FILTERS
-  // 1. Use the filters given as input, update the Duration Filter value and Generate Category Pills
+//Implementation of conditional rendering of DOM based on availability
+function conditionalRenderingOfReservationPanel(adventure) {
+  // TODO: MODULE_RESERVATIONS
+  // 1. If the adventure is already reserved, display the sold-out message.
+  if (adventure["available"]) {
+    document.getElementById("reservation-panel-sold-out").style.display = "none";
+    document.getElementById("reservation-panel-available").style.display = "block";
+    document.getElementById("reservation-person-cost").innerHTML = adventure["costPerHead"];
+  }
+  else {
+    document.getElementById("reservation-panel-sold-out").style.display = "block";
+    document.getElementById("reservation-panel-available").style.display = "none";
+  }
 
 }
+
+//Implementation of reservation cost calculation based on persons
+function calculateReservationCostAndUpdateDOM(adventure, persons) {
+  // TODO: MODULE_RESERVATIONS
+  // 1. Calculate the cost based on number of persons and update the reservation-cost field
+  document.getElementById("reservation-cost").innerHTML = persons * adventure["costPerHead"];
+}
+
+//Implementation of reservation form submission
+function captureFormSubmit(adventure) {
+  // TODO: MODULE_RESERVATIONS
+  // 1. Capture the query details and make a POST API call using fetch() to make the reservation
+  // 2. If the reservation is successful, show an alert with "Success!" and refresh the page. If the reservation fails, just show an alert with "Failed!".
+  const myForm = document.getElementById("myForm");
+  myForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    let data = {
+      name: myForm.elements["name"].value,
+      date: new Date(myForm.elements["date"].value),
+      person: myForm.elements["person"].value,
+      adventure: adventure["id"]
+    }
+    //console.log(data);
+    try {
+      const url = `${config.backendEndpoint}/reservations/new`;
+      const res = await fetch(url, {
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      alert("success");
+      window.location.reload();
+    }
+    catch (error) {
+      console.log(error);
+      alert("failed");
+
+    }
+  });
+}
+
+//Implementation of success banner after reservation
+function showBannerIfAlreadyReserved(adventure) {
+  // TODO: MODULE_RESERVATIONS
+  // 1. If user has already reserved this adventure, show the reserved-banner, else don't
+  if (adventure["reserved"] == true) {
+    document.getElementById("reserved-banner").style.display = "block";
+  }
+  else {
+    document.getElementById("reserved-banner").style.display = "none";
+  }
+}
+
 export {
-  getCityFromURL,
-  fetchAdventures,
-  addAdventureToDOM,
-  filterByDuration,
-  filterByCategory,
-  filterFunction,
-  saveFiltersToLocalStorage,
-  getFiltersFromLocalStorage,
-  generateFilterPillsAndUpdateDOM,
+  getAdventureIdFromURL,
+  fetchAdventureDetails,
+  addAdventureDetailsToDOM,
+  addBootstrapPhotoGallery,
+  conditionalRenderingOfReservationPanel,
+  captureFormSubmit,
+  calculateReservationCostAndUpdateDOM,
+  showBannerIfAlreadyReserved,
 };
