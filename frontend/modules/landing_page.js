@@ -2,7 +2,6 @@ import config from "../conf/index.js";
 
 async function init() {
   //Fetches list of all cities along with their images and description
-
   let cities = await fetchCities();
 
   //Updates the DOM with the cities
@@ -15,17 +14,6 @@ async function init() {
 
 //Implementation of fetch call
 async function fetchCities() {
-  try {
-    // TODO: MODULE_CITIES
-    // 1. Fetch cities using the Backend API and return the data
-    const cities = await fetch(config.backendEndpoint + "/cities");
-    const data = await cities.json();
-    console.log(cities);
-    return data;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
   // TODO: MODULE_CITIES
   // 1. Fetch cities using the Backend API and return the data
 

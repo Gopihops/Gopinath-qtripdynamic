@@ -37,20 +37,20 @@ app.get("/cities", (req, res) => {
   return res.json(data);
 });
 
-
-// [GET API] used in module 2 to fetch all adventures for a given city
-// The response is an [array] of adventures with each having the following structure :
-// {
-//     "id": "2447910730",
-//     "name": "Niaboytown",
-//     "costPerHead": 4003,
-//     "currency": "INR",
-//     "image": "https://images.pexels.com/photos/837745/pexels-photo-837745.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
-//     "duration": 6,
-//     "category": "Party"
-//  }
-// Data is sourced from "adventures" array in db.json file
-
+/*
+[GET API] used in module 2 to fetch all adventures for a given city
+The response is an [array] of adventures with each having the following structure :
+{
+    "id": "2447910730",
+    "name": "Niaboytown",
+    "costPerHead": 4003,
+    "currency": "INR",
+    "image": "https://images.pexels.com/photos/837745/pexels-photo-837745.jpeg?auto=compress&cs=tinysrgb&h=650&w=940",
+    "duration": 6,
+    "category": "Party"
+ }
+Data is sourced from "adventures" array in db.json file
+*/
 app.get("/adventures", (req, res) => {
   const data = db.get("adventures").value();
   let response = (data.find((item) => item.id == req.query.city) || [])
