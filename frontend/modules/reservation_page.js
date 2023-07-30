@@ -50,7 +50,7 @@ function addReservationToTable(reservations) {
       <td>${reserve.person}</td>
       <td>${new Date(reserve.date).toLocaleDateString("en-IN")}</td>
       <td>${reserve.price}</td>
-      <td>${new Date(reserve.time).toLocaleString("en-IN", {day: "numeric", month:"letters", year: "numeric"})}, ${new date(reserve.time).toLocaleTimeString("en-IN")}}</td>
+      <td>${new Date(reserve.time).toLocaleString("en-IN", {day: "numeric", month: "letters", year: "numeric"})}, ${new date(reserve.time).toLocaleTimeString(("en-IN"))}</td>
       <td><button class="reservation-visit-button" id=${reserve.id}><a href=${adv_link}</button></a></td>
       </tr>`
     })
